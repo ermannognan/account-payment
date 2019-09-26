@@ -80,7 +80,7 @@ class AccountJournal(osv.Model):
             ])
             if not account_existing:
                 free_account_code_found = True
-                new_account = last_method.default_debit_account_id.copy({
+                new_account = last_method.default_debit_account_id.sudo().copy({
                     'code': account_new_code,
                     'name': vals['name'],
                 })
@@ -93,7 +93,7 @@ class AccountJournal(osv.Model):
         new_payment_method = last_method.with_context(
             call_super_create=True).copy(vals)
         new_payment_method.name = vals['name']
-        new_payment_method.sequence_id.write({
+        new_payment_method.sequence_id.sudo().write({
             'name': vals['name'],
             'prefix': code + '/%(range_year)s/',
         })
