@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_account_journal_payment_method_simplified_tree" model="ir.ui.view">
+        <field name="name">account.journal.simplified.tree</field>
+        <field name="model">account.journal</field>
+        <field name="priority" eval="9999"/>
+        <field name="arch" type="xml">
+
+            <tree string="Payment methods">
+                <field name="name"/>
+                <field name="type"/>
+            </tree>
+
+        </field>
+    </record>
+
+    <record id="view_account_journal_payment_method_simplified_form" model="ir.ui.view">
+        <field name="name">account.journal.simplified.form</field>
+        <field name="model">account.journal</field>
+        <field name="priority" eval="9999"/>
+        <field name="arch" type="xml">
+
+            <form string="Payment method">
+                <sheet>
+                    <h1><field name="name" placeholder="Fill in the payment method name..."/></h1>
+                    <group>
+                        <field name="payment_method_simplified_type" required="True"/>
+                    </group>
+                </sheet>
+            </form>
+
+        </field>
+    </record>
+
+    <record id="action_account_journal_payment_methods_simplified" model="ir.actions.act_window">
+        <field name="name">Payment methods</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">account.journal</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('type', 'in', ('bank', 'cash'))]</field>
+        <field name="context">{'account_journal_payment_method_simplified': True}</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Create a new payment method.
+            </p>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window.view" id="action_account_journal_payment_methods_simplified_tree">
+        <field name="sequence" eval="5"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="view_account_journal_payment_method_simplified_tree"/>
+        <field name="act_window_id" ref="action_account_journal_payment_methods_simplified"/>
+    </record>
+
+    <record model="ir.actions.act_window.view" id="action_account_journal_payment_methods_simplified_form">
+        <field name="sequence" eval="10"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_account_journal_payment_method_simplified_form"/>
+        <field name="act_window_id" ref="action_account_journal_payment_methods_simplified"/>
+    </record>
+
+</odoo>
